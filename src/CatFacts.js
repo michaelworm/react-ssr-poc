@@ -1,20 +1,13 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment } from "react";
+import { useStore } from "react-redux";
 
 function CatFacts() {
-  const [fact, setFact] = useState("Loading ...");
-
-  useEffect(() => {
-    fetch("https://catfact.ninja/fact")
-      .then((response) => response.json())
-      .then((result) => {
-        setFact(result.fact);
-      });
-  }, []);
+  const store = useStore();
 
   return (
     <Fragment>
       <h1>Cat facts</h1>
-      <strong>{fact}</strong>
+      <strong>{store.getState().catFacts.fact}</strong>
     </Fragment>
   );
 }
