@@ -15,9 +15,12 @@ export const fetchCatFacts = createAsyncThunk(
   "catFacts/fetchCatFacts",
   async () => {
     const response = await fetch("https://catfact.ninja/fact");
-    const data = await response.json();
+    const data = await Promise.all([
+      response.json(),
+      new Promise(resolve => setTimeout(resolve, 5000)) // sleep for 5 seconds
+    ]);
 
-    return data;
+    return data[0];
   }
 );
 
